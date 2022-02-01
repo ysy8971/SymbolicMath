@@ -22,7 +22,7 @@ R_z_gamma = sp.Matrix([[cos_gamma, -sin_gamma, 0],[sin_gamma, cos_gamma, 0],[0, 
 x = sp.Matrix([1, 0, 0])
 y = R_z_gamma * x
 
-deg=90
+deg=45
 print(y.subs(gamma, pi/180 * deg))
 print(N(y.subs(gamma, pi/180 * deg)))
 
