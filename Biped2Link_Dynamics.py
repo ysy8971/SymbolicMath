@@ -1,6 +1,48 @@
 import sympy as sp
 from sympy import *
 
+ths, thns, ths2 = sp.symbols("ths, thns ths2")
+a, b, L = sp.symbols("a, b, L")
+
+T_01 = sp.Matrix([[sp.cos(ths+pi/2), -sp.sin(ths+pi/2), 0, 0], [sp.sin(ths+pi/2), sp.cos(ths+pi/2), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+T_12 = sp.Matrix([[1, 0, 0, L], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+T_23 = sp.Matrix([[sp.cos(ths2), -sp.sin(ths2), 0, 0], [sp.sin(ths2), sp.cos(ths2), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+T_34 = sp.Matrix([[1, 0, 0, L], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+
+T_02 = T_01 * T_12
+T_04 = simplify(T_01 * T_12 * T_23 * T_34)
+
+
+Px1, Py1, Pz1 = T_02[0,3], T_02[1,3], T_02[2,3]
+Px2, Py2, Pz2 = T_04[0,3], T_04[1,3], T_04[2,3]
+
+print("Px1 = ", Px1)
+print("Py1 = ", Py1)
+print("Px2 = ", Px2)
+print("Py2 = ", Py2)
+
+thsval=pi/2
+thnsval=0
+
+tns2val=thnsval-pi
+
+print("Px1, Py1= ", Px1.subs([(ths, thsval), (ths2, thnsval)]), Py1.subs([(ths, thsval), (ths2, thnsval)]))
+print("Px2, Py2 = ", Px2.subs([(ths, thsval), (ths2, thnsval)]), Py2.subs([(ths, thsval), (ths2, thnsval)]))
+
+
+
+
+"""
+
+
+
+M11=Derivative(Px2, ths).doit()
+M12=Derivative(Px2, thns).doit()
+M21=Derivative(Py2, ths).doit()
+M22=Derivative(Py2, thns).doit()
+
+
+
 
 theta1, theta2 = sp.symbols("theta1, theta2")
 theta1dot, theta2dot = sp.symbols("theta1dot, theta2dot")
@@ -51,7 +93,6 @@ print("x2vel =", x2vel)
 
 
 
-"""
 # angle
 alpha, beta, gamma = sp.symbols("alpha, beta, gamma")
 Px, Py, Pz = sp.symbols("Px, Py, Pz")
